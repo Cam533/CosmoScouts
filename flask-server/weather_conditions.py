@@ -8,9 +8,8 @@ async def get_weather_conditions(city_name):
         weather = await client.find(city_name)
         
         # Extract and return relevant weather information from the response
-        return {
-            "temperature": weather.current.temperature,
-            "visibility": weather.current.visibility
-        }
+        visibility = weather.current.visibility
+        print(f"Visibility in NYC: {visibility} meters")
+        return visibility
     
  

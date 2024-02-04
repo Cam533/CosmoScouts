@@ -1,24 +1,31 @@
+# Filename - server.py
+
+# Import flask and datetime module for showing date and time
 from flask import Flask
-from flask import Flask, request, jsonify
-import asyncio
-from weather_conditions import get_weather_conditions
-import asyncio
+from flask_cors import CORS, cross_origin
+import datetime
 
+x = datetime.datetime.now()
 
+# Initializing flask app
 app = Flask(__name__)
 
-@app.route('/api/weather', methods=['POST'])
-def weather():
-    data = request.get_json()
-    location = data.get('city')
-    weather_info = asyncio.run(get_weather_conditions(location))
-    return jsonify(weather_info)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Types'
 
-@app.route('/api/heatmap', methods=['POST'])
-def heatmap():
-    locations = request.json['locations']
-    heatmap_url = generate_heatmap(locations)
-    return jsonify({'heatmap_url': heatmap_url})
 
+# Route for seeing a data
+@app.route('/data')
+def get_time():
+
+	# Returning an api for showing in reactjs
+	return {
+		'Name':"geek", 
+		"Age":"22",
+		"Date":x, 
+		"programming":"python"
+		}
+
+# Running app
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(debug=True)
